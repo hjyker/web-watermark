@@ -23,6 +23,8 @@ import Watermark from 'web-watermark'
 
 new Watermark({
   mode: 'canvas', // default
+  container: document.body, // default
+  watch: true, // default
   text: '敏感信息请勿泄漏', // default
   x: 0, // default
   y: 50, // default
@@ -42,7 +44,9 @@ new Watermark({
 | 参数 | 取值 | 说明 |
 | :----: | :----: | :---- |
 | mode       | String: 'canvas'           | 水印渲染的模式，可选 'canvas' 或 'svg' 渲染          |
-| text       | String: '敏感信息请勿泄漏'   | 水印信息                                             |
+| container  | Node: document.body        | 需要渲染水印的元素，默认为 body，即整个页面渲染         |
+| watch      | Boolean: true              | 监听水印元素是否被篡改，被修改或者删除等操作，则重新渲染水印  |
+| text       | String: '敏感信息请勿泄漏'    | 水印信息                                             |
 | x          | Number: 0                  | 水印 x 轴偏移量，用于微调水印位置                    |
 | y          | Number: 50                 | 水印 y 轴偏移量，用于微调水印位置                    |
 | width      | Number: 150                | 水印图片的宽度                                       |

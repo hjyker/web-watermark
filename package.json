@@ -1,6 +1,6 @@
 {
   "name": "web-watermark",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Watermark for web page.",
   "main": "lib/webWatermark.js",
   "module": "lib/webWatermark.js",

@@ -1,9 +1,12 @@
 import SvgMark from './renders/SVGRender'
 import CanvasMark from './renders/CanvasRender'
+import { watcher } from './utils'
 
 const defaultOptions = {
   mode: 'canvas',
+  container: document.body,
   text: '敏感信息请勿泄漏',
+  watch: true,
   x: 0,
   y: 50,
   width: 150,
@@ -19,11 +22,12 @@ const defaultOptions = {
 export default class Watermark {
   constructor(options = {}) {
     this.options = { ...defaultOptions, ...options }
-    this.wm = this.produce(this.options)
-    this.wrapEl = this.containerInit()
+    this.wm = null
+    this.wrapEl = null
+    this.watcher = null
   }
 
-  produce = (options) => {
+  wmInit = (options) => {
     const markMode = ['svg', 'canvas']
     if (markMode.indexOf(options.mode) === -1) {
       throw new Error(`No this mode: ${options.mode}, you could use 'svg' or 'canvas' only.`)
@@ -40,7 +44,7 @@ export default class Watermark {
     return null
   }
 
-  containerInit = () => {
+  wmWrapInit = () => {
     const wrapEl = document.createElement('div')
     wrapEl.style.position = 'absolute'
     wrapEl.style.top = '0'
@@ -54,15 +58,33 @@ export default class Watermark {
   }
 
   render = () => {
+    this.destroy()
+
+    this.wm = this.wmInit(this.options)
     const dataUrl = this.wm.render()
+
+    this.wrapEl = this.wmWrapInit()
     this.wrapEl.style.backgroundImage = `url("${dataUrl}")`
-    document.body.appendChild(this.wrapEl)
+
+    const { container } = this.options
+    container.appendChild(this.wrapEl)
+
+    if (this.options.watch) {
+      this.watcher = watcher(this.wrapEl, container, () => {
+        this.render()
+      })
+    }
   }
 
   destroy = () => {
     this.wm = null
+
+    if (this.watcher) {
+      this.watcher.clean()
+    }
+
     if (this.wrapEl) {
-      document.body.removeChild(this.wrapEl)
+      this.wrapEl.remove()
       this.wrapEl = null
     }
   }
