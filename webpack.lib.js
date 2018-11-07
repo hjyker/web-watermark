@@ -9,7 +9,7 @@ module.exports = {
   entry: resolve('index.js'),
   output: {
     path: resolve('lib'),
-    filename: 'web-watermark.lib.js',
+    filename: 'webWatermark.js',
     library: 'webWatermark',
     libraryTarget: 'umd',
   },

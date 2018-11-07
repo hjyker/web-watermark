@@ -1,16 +1,16 @@
 {
   "name": "web-watermark",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Watermark for web page.",
-  "main": "lib/web-watermark.lib.js",
-  "module": "index.js",
+  "main": "lib/webWatermark.js",
+  "module": "lib/webWatermark.js",
   "repository": "git@github.com:hjyker/web-watermark.git",
   "author": "hjyker@gmail.com",
   "license": "ISC",
   "scripts": {
-    "clean": "rimraf lib",
-    "build": "npm run clean && webpack --progress --config webpack.lib.js",
-    "lint": "eslint --ext .js src"
+    "clean": "rm -fr lib",
+    "lint": "eslint --ext .js src",
+    "build": "npm run clean && webpack --progress --config webpack.lib.js"
   },
   "keywords": [
     "javascript",
@@ -27,8 +27,10 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-loader": "^2.1.1",
     "eslint-plugin-import": "^2.14.0",
-    "rimraf": "^2.6.2",
     "webpack": "^4.25.1",
     "webpack-cli": "^3.1.2"
-  }
+  },
+  "files": [
+    "lib"
+  ]
 }

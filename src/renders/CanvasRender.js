@@ -19,7 +19,7 @@ export default class CanvasMark {
   }
 
   debugRender = (ctx) => {
-    /* eslint-disable no-console*/
+    /* eslint-disable no-console */
     console.log('dpr', this.dpr)
 
     ctx.beginPath()
