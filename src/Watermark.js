@@ -27,24 +27,25 @@ export default class Watermark {
     this.watcher = null
   }
 
-  wmInit = (options) => {
+  $wmInit = () => {
+    const { mode } = this.options
     const markMode = ['svg', 'canvas']
-    if (markMode.indexOf(options.mode) === -1) {
-      throw new Error(`No this mode: ${options.mode}, you could use 'svg' or 'canvas' only.`)
+    if (markMode.indexOf(mode) === -1) {
+      throw new Error(`No this mode: ${mode}, you could use 'svg' or 'canvas' only.`)
     }
 
-    if (options.mode === 'svg') {
-      return new SvgMark(options)
+    if (mode === 'svg') {
+      return new SvgMark(this.options)
     }
 
-    if (options.mode === 'canvas') {
-      return new CanvasMark(options)
+    if (mode === 'canvas') {
+      return new CanvasMark(this.options)
     }
 
     return null
   }
 
-  wmWrapInit = () => {
+  $wmWrapInit = () => {
     const wrapEl = document.createElement('div')
     wrapEl.style.position = 'absolute'
     wrapEl.style.top = '0'
@@ -57,21 +58,25 @@ export default class Watermark {
     return wrapEl
   }
 
-  render = () => {
+  render = (opts = null) => {
     this.destroy()
 
-    this.wm = this.wmInit(this.options)
-    const dataUrl = this.wm.render()
+    if (Object.prototype.toString.call(opts) === '[object Object]') {
+      this.options = { ...this.options, ...opts }
+    }
 
-    this.wrapEl = this.wmWrapInit()
+    this.wm = this.$wmInit()
+    this.wrapEl = this.$wmWrapInit()
+
+    const dataUrl = this.wm.render()
     this.wrapEl.style.backgroundImage = `url("${dataUrl}")`
 
-    const { container } = this.options
+    const { container, watch } = this.options
     container.appendChild(this.wrapEl)
 
-    if (this.options.watch) {
+    if (watch) {
       this.watcher = watcher(this.wrapEl, container, () => {
-        this.render()
+        this.render(this.options)
       })
     }
   }

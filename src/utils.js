@@ -3,7 +3,6 @@ export function devicePixelRatio() {
   return dpr ? Math.round(dpr) : 2
 }
 
-/* eslint-disable */
 export function watcher(target, parent, callback) {
   const config = {
     attributes: true,
@@ -13,11 +12,11 @@ export function watcher(target, parent, callback) {
   }
   const targetWatcher = new MutationObserver(callback)
   const parentWatcher = new MutationObserver((mutationsList) => {
-    for (let mutation of mutationsList) {
-      for (let t of mutation.removedNodes) {
+    mutationsList.forEach(mutation => {
+      mutation.removedNodes.forEach(t => {
         if (t === target) callback()
-      }
-    }
+      })
+    })
   })
 
   targetWatcher.observe(target, config)

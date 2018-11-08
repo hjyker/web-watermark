@@ -6,7 +6,7 @@ const resolve = (srcPath) => {
 
 module.exports = {
   mode: 'production',
-  entry: resolve('index.js'),
+  entry: resolve('src/index.js'),
   output: {
     path: resolve('lib'),
     filename: 'webWatermark.js',
