@@ -1,5 +1,10 @@
 <div align="center">
   <h1>web-watermark</h1>
+<p>
+
+[![npm](https://img.shields.io/npm/v/web-watermark)](https://www.npmjs.com/package/web-watermark) ![](https://img.shields.io/bundlephobia/minzip/web-watermark) ![](https://img.shields.io/npm/dt/web-watermark) 
+
+</p>
   <p>网页水印</p>
 </div>
 
